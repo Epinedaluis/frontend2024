@@ -49,9 +49,11 @@ setDisplay({
   }
 
   const deleteLastCharacter =() => {
+
     setDisplay ({
       ...display,
-      value: display.value.slice(0, -1)
+      value: display.value.slice(0, -1),
+      hasPoint: (display.value.slice(-1) == '.') ? false : display.hasPoint
     })
     if (display.value.length == 1){
       setDisplay({
@@ -60,6 +62,8 @@ setDisplay({
       })
     }
   }
+
+
 
   const setOperator = (operator) => {
 setDisplay({
@@ -75,12 +79,25 @@ setDisplay({
     if (display.operator == ''){
       return
       }
+
+      // let result = 0
+
+      // if (display.operator == '%') {
+      //    result = eval (display.previusValue + '/ 100 *' + display.value)
+      // } else {
+      //    result = eval (display.previusValue + display.operator + display.value)
+      // } 
+
+      let result = (display.operator == '%') ? 
+      eval (display.previusValue + '/ 100 *' + display.value) :
+      eval (display.previusValue + display.operator + display.value)
+      
       setDisplay({
         ...display,
         operator: '',
         hasPoint: false,
         previusValue: '0',
-        value: eval (`${display.previusValue} ${display.operator} ${display.value}`),
+        value: result + '',
     })
   }
 
@@ -117,13 +134,14 @@ setDisplay({
             <td>
             <button className={operatorbuttonsclases}             
             type='button'
-            onClick={deleteLastCharacter}>
+            onClick={() => setOperator('%')}>
               %
              </button>
             </td>
             <td>
             <button className={operatorbuttonsclases}             
-            type='button'>
+            type='button'
+            onClick={() => setOperator('/')}>
               /
              </button>
             </td>
@@ -152,7 +170,8 @@ setDisplay({
             </td>
             <td>
             <button className={operatorbuttonsclases}             
-            type='button'>
+            type='button'
+            onClick={() => setOperator('x')}>
               x
              </button>
             </td>
@@ -181,7 +200,8 @@ setDisplay({
             </td>
             <td>
             <button className={operatorbuttonsclases}          
-               type='button'>
+               type='button'
+               onClick={() => setOperator('-')}>
               -
              </button>
             </td>
