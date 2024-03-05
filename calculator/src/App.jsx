@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 
-const numericButtonsClasses = 'btn btn-outline-warning w-100'
-const operatorsButtonsClasses = 'btn btn-outline-primary w-100'
-const specialButtonsClasses = 'btn btn-outline-danger w-100'
-
+const numericButtonsClasses = "btn btn-outline-warning w-100"
+const operatorsButtonsClasses = "btn btn-outline-primary w-100"
+const specialButtonsClasses = "btn btn-outline-danger w-100"
 function App() {
   const [display, setDisplay] = useState({
     value: '0',
@@ -93,7 +92,7 @@ function App() {
       eval(display.previousValue + ' / 100 *' + display.value) :
       eval(display.previousValue + display.operator + display.value)
 
-      result = result + ""
+    result = result + ""
 
     setDisplay({
       ...display,
@@ -106,8 +105,16 @@ function App() {
   }
 
   const limit = (string = '', length = 10) => {
-   return string.slice(0, length) 
+    return string.slice(0, length)
   }
+
+const buttonsFunctions={
+  updateDisplay,
+  clearDisplay,
+  deleteLastCharacter,
+  setOperator,
+  calculate,
+}
 
   return (
     <div>
